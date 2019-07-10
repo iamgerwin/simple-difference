@@ -2,27 +2,25 @@
 
 class BasicDifference
 {
-
     protected $valueA;
     protected $valueB;
 
     public function __construct($valueA, $valueB)
     {
-        $this->valueA = $valueA;
-        $this->valueB = $valueB;
+        $this->valueA = htmlentities($valueA);
+        $this->valueB = htmlentities($valueB);
     }
 
     public function compare($way = 'difference')
     {
-        $arrayA = str_split($this->valueA);
-        $arrayB = str_split($this->valueB);
+        $arrays = $this->getLargestString($this->valueA, $this->valueB);
         $start = [];
         $end = [];
         $streak = false;
 
-        for ($i = 0; $i <= count($arrayA); $i++) {
+        for ($i = 0; $i <= count($arrays["first"]); $i++) {
 
-            if (count($arrayA) == $i) {
+            if (count($arrays["first"]) == $i) {
                 if ($streak) {
                     $end[] = $i - 1;
                 }
@@ -31,10 +29,10 @@ class BasicDifference
 
             switch ($way) {
                 case 'similar':
-                    $method = $arrayA[$i] == $arrayB[$i];
+                    $method = $arrays["first"][$i] == $arrays["second"][$i];
                     break;
                 default: // difference
-                    $method = $arrayA[$i] != $arrayB[$i];
+                    $method = $arrays["first"][$i] != $arrays["second"][$i];
             }
 
             if ($method) {
@@ -55,15 +53,18 @@ class BasicDifference
         }
 
         return [
-            "words" => [$arrayA, $arrayB],
+            "reverse" => $arrays["reverse"],
+            "words" => [$arrays["first"], $arrays["second"]],
             "placement" => [$start, $end]
         ];
     }
 
     public function display($arr)
     {
-        $first = $this->htmlDisplay($arr['words'][0], $arr['placement'], 'first');
-        $second = $this->htmlDisplay($arr['words'][1], $arr['placement'], 'second');
+        $arrange = (!$arr["reverse"]) ?  [0, 1] : [1, 0];
+        $first = $this->htmlDisplay($arr['words'][$arrange[0]], $arr['placement'], 'first');
+        $second = $this->htmlDisplay($arr['words'][$arrange[1]], $arr['placement'], 'second');
+
         echo '<link rel="stylesheet" href="main.css">';
         echo '<table class="diff">';
         echo '<tbody>';
@@ -75,6 +76,26 @@ class BasicDifference
         echo '</tr>';
         echo '</tbody>';
         echo '</table>';
+    }
+
+    private function getLargestString($a, $b)
+    {
+        $a = str_split($a);
+        $b = str_split($b);
+
+        if (count($a) >= count($b)) {
+            return [
+                "first" => $a,
+                "second" => $b,
+                "reverse" => false,
+            ];
+        } else {
+            return [
+                "first" => $b,
+                "second" => $a,
+                "reverse" => true,
+            ];
+        }
     }
 
     public function htmlDisplay($words, $placement, $class)
@@ -92,6 +113,7 @@ class BasicDifference
             }
             $index++;
         }
+
         return $response;
     }
 }

@@ -11,7 +11,7 @@
 
 <body>
     <div>
-        <form action="brain.php">
+        <form action="result" method="post">
             <table class="diff">
                 <thead>
                     <tr>

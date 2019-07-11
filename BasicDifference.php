@@ -7,8 +7,8 @@ class BasicDifference
 
     public function __construct($valueA, $valueB)
     {
-        $this->valueA = htmlentities($valueA);
-        $this->valueB = htmlentities($valueB);
+        $this->valueA = htmlspecialchars($valueA);
+        $this->valueB = htmlspecialchars($valueB);
     }
 
     public function compare($way = 'difference')

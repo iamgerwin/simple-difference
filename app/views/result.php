@@ -11,10 +11,15 @@
 
 <body>
     <table class="diff">
+        <thead>
+            <tr>
+                <td>Difference</td>
+            </tr>
+        </thead>
         <tbody>
             <?php foreach ($results as $result) : ?>
                 <tr>
-                    <td> <?= $result ?> </td>
+                    <td><?= $result ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

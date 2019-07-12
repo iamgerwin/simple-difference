@@ -1,5 +1,5 @@
 <?php
 interface DifferentiateInterface
 {
-    public function compare(string $a, string $b);
+    public function compare(array $a, array $b);
 }

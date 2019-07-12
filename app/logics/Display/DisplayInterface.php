@@ -2,5 +2,5 @@
 
 interface DisplayInterface
 {
-    public function display(array $words, array $placement, string $class);
+    public function display(array $arranged, array $diffed);
 }

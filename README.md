@@ -4,6 +4,6 @@
     1.  Change directory on root project directory
     >   cd ~/directory/to/project/simple-difference/
     2.  Use built-in PHP server runner example:
-    >  php -S localhost:8888
+    >  php -S localhost:5000
     3.  Go to browser
-    >   http://localhost:8888
+    >   http://localhost:5000

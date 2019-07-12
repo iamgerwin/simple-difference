@@ -11,7 +11,7 @@
 
 <body>
     <div>
-        <form action="result" method="post">
+        <form action="result.php" method="post">
             <table class="diff">
                 <thead>
                     <tr>

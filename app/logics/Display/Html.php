@@ -1,6 +1,6 @@
 <?php
 
-require 'app/logics/Display/DisplayInterface.php';
+require_once 'app/logics/Display/DisplayInterface.php';
 
 class Html implements DisplayInterface
 {
@@ -9,26 +9,19 @@ class Html implements DisplayInterface
      * Array $arranged, $diffed
      * @return array []
      */
-    public function display(array $arranged, array $diffed)
+    public function display(array $letters, array $diffed, string $class)
     {
-        $results = [];
-        $strings = [$arranged["first"], $arranged["second"]];
-        $strings = (!$arranged["reverse"]) ?  $strings : array_reverse($strings);
-        foreach ($strings as $key => $letters) {
-            $response = null;
-            $class = (!$key) ? 'first' : 'second';
-            foreach ($letters as $index => $char) {
-                if (in_array($index, $diffed["start"])) {
-                    $response .= '<span class="' . $class . '">';
-                }
-                $response .= trim($char);
-                if (in_array($index, $diffed["end"])) {
-                    $response .= "</span>";
-                }
-            }
-            $results[] = $response;
-        }
+        $response = null;
 
-        return $results;
+        foreach ($letters as $index => $char) {
+            if (in_array($index, $diffed["start"])) {
+                $response .= '<span class="' . $class . '">';
+            }
+            $response .= ($char);
+            if (in_array($index, $diffed["end"])) {
+                $response .= "</span>";
+            }
+        }
+        return $response;
     }
 }

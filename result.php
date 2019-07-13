@@ -1,3 +1,3 @@
 <?php
 
-require 'app/controllers/Result.php';
+require_once 'app/controllers/Result.php';

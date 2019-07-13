@@ -1,5 +1,5 @@
 <?php
-require 'app/logics/Arrange/ArrangeInterface.php';
+require_once 'app/logics/Arrange/ArrangeInterface.php';
 
 class Largest implements ArrangeInterface
 {

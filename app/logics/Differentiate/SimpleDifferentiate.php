@@ -1,5 +1,5 @@
 <?php
-require 'app/logics/Differentiate/DifferentiateInterface.php';
+require_once 'app/logics/Differentiate/DifferentiateInterface.php';
 
 class SimpleDifferentiate implements DifferentiateInterface
 {

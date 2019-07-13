@@ -10,14 +10,29 @@
 </head>
 
 <body>
-    <table class="diff">
+    <table id="basic" class="diff">
         <thead>
             <tr>
-                <td>Difference</td>
+                <td>Simple Difference</td>
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($results as $result) : ?>
+            <?php foreach ($simpleResults as $result) : ?>
+                <tr>
+                    <td><?= $result ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <hr>
+    <table id="advanced" class="diff">
+        <thead>
+            <tr>
+                <td>Advanced Difference</td>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($advancedResults as $result) : ?>
                 <tr>
                     <td><?= $result ?></td>
                 </tr>

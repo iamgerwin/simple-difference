@@ -23,12 +23,13 @@ $arranged = $largest->arrange(
 );
 
 $simpleDiffed = $simple->compare($arranged["first"], $arranged["second"]);
+dd($simpleDiffed);
 $simpleResults = [
     $html->display($arranged["first"], $simpleDiffed, 'first'),
     $html->display($arranged["second"], $simpleDiffed, 'second')
 ];
 $simpleResults = isReversed($arranged["reverse"], $simpleResults);
-dd(array_reverse($advanced->allPossible($arranged["first"])));
+dd(($advanced->allPossible($arranged["first"])));
 $advancedDiffed = $advanced->compare($arranged["first"], $arranged["second"]);
 if (is_array($advancedDiffed)) {
     $advancedResults = [

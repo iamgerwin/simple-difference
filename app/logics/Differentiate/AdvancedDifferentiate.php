@@ -18,19 +18,18 @@ class AdvancedDifferentiate implements DifferentiateInterface
 
     public function allPossible(array $arr)
     {
-        $base = $arr;
         $perms = [];
-
+        $i = 0;
         while (count($arr) != 0) {
             $tempo = $arr;
             while (count($tempo) != 0) {
-                dd(current($tempo));
-                $perms[] = [implode("", $tempo) => [
-                    array_search(reset($tempo), $base),
-                    array_search(end($tempo), $base)
-                ]];
+                $perms[implode("", $tempo)] = [
+                    $i,
+                    $i + count($tempo) - 1,
+                ];
                 array_pop($tempo);
             }
+            $i++;
             array_shift($arr);
         }
         return $perms;

@@ -23,21 +23,22 @@ $arranged = $largest->arrange(
 );
 
 $simpleDiffed = $simple->compare($arranged["first"], $arranged["second"]);
-dd($simpleDiffed);
+// dd($simpleDiffed);
 $simpleResults = [
     $html->display($arranged["first"], $simpleDiffed, 'first'),
     $html->display($arranged["second"], $simpleDiffed, 'second')
 ];
 $simpleResults = isReversed($arranged["reverse"], $simpleResults);
-dd(($advanced->allPossible($arranged["first"])));
-$advancedDiffed = $advanced->compare($arranged["first"], $arranged["second"]);
-if (is_array($advancedDiffed)) {
-    $advancedResults = [
-        $html->display($arranged["first"], $advancedDiffed, 'first'),
-        $html->display($arranged["second"], $advancedDiffed, 'second'),
-    ];
-    $advancedResults = isReversed($arranged["reverse"], $advancedResults);
-}
+
+$aDiffed01 = $advanced->compare($arranged["first"], $arranged["second"]);
+$aDiffed02 = $advanced->compare($arranged["second"], $arranged["first"]);
+// dd($aDiffed02);
+// ["start" => [25, 8], "end" => [50, 8]]
+$advancedResults = [
+    $html->display($arranged["first"], $aDiffed01, 'first'),
+    $html->display($arranged["second"], $aDiffed02, 'second'),
+];
+$advancedResults = isReversed($arranged["reverse"], $advancedResults);
 
 function isReversed($reverse, $array)
 {
@@ -49,8 +50,9 @@ function dd($var)
     echo '<pre>';
     var_dump($var);
     echo '<pre>';
-    die();
+    // die();
 }
+
 /**
  * View
  */

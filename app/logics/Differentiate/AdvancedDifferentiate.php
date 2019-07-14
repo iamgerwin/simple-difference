@@ -13,25 +13,90 @@ class AdvancedDifferentiate implements DifferentiateInterface
      */
     public function compare(array $a, array $b)
     {
-        dd($this->allPossible(['a', 'b', 'c']));
+        $a = $this->allPossible($a);
+        $b = $this->allPossible($b);
+
+        return $this->placementStartEnd($this->elimination($a, $b));
     }
 
-    public function allPossible(array $arr)
+    private function placementStartEnd(array $result)
+    {
+        $ranges = [];
+        foreach ($result as $ar) {
+            $ranges["start"][] = $ar["coordinates"][0];
+            $ranges["end"][] = $ar["coordinates"][1];
+        }
+        // dd($ranges);
+        // die();
+        return $ranges;
+    }
+
+    private function elimination(array $mainArr, array $compareArr)
+    {
+        $eList = [];
+        $reList = [];
+
+        foreach ($mainArr as $key => $value) {
+            $compareKey = array_search(
+                $mainArr[$key]['string'],
+                array_column($compareArr, 'string')
+            );
+
+
+            if (!($compareKey === false)) {
+                $eList[] = $mainArr[$compareKey];
+                dd($mainArr[$compareKey]["coordinates"]);
+                foreach ($mainArr as $index => $val) {
+                    if (($mainArr[$compareKey]["coordinates"][0] <=
+                            $val["coordinates"][1])
+                        && ($mainArr[$compareKey]["coordinates"][1] >=
+                            $val["coordinates"][0])
+                    ) {
+                        $reList[] = $mainArr[$index];
+                        unset($mainArr[$index]);
+                    }
+                }
+            }
+        }
+        // dd($mainArr);
+        die();
+        return $mainArr;
+    }
+
+    private function allPossible(array $arr)
     {
         $perms = [];
         $i = 0;
         while (count($arr) != 0) {
             $tempo = $arr;
             while (count($tempo) != 0) {
-                $perms[implode("", $tempo)] = [
-                    $i,
-                    $i + count($tempo) - 1,
+                $perms[] = [
+                    "string" => implode("", $tempo),
+                    "coordinates" => [
+                        $i,
+                        $i + count($tempo) - 1,
+                    ],
                 ];
                 array_pop($tempo);
             }
             $i++;
             array_shift($arr);
         }
-        return $perms;
+
+        return $this->arrangeValues($perms);
+    }
+
+    private function arrangeValues($arr, $way = SORT_ASC)
+    {
+        array_multisort(
+            array_map(
+                'strlen',
+                array_column($arr, 'string')
+            ),
+            $way,
+            $arr
+        );
+
+        return $arr;
     }
 }
